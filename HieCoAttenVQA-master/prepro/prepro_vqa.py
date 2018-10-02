@@ -53,7 +53,7 @@ def build_vocab_question(imgs, params):
     print('\n'.join(map(str,cw[:20])))
 
     # print some stats
-    total_words = sum(counts.itervalues())
+    total_words = sum(counts.values())
     print('total words:', total_words)
     bad_words = [w for w,n in counts.items() if n <= count_thr]
     vocab = [w for w,n in counts.items() if n > count_thr]
@@ -155,7 +155,7 @@ def get_unqiue_img(imgs):
     for img in imgs:
         count_img[img['img_path']] = count_img.get(img['img_path'], 0) + 1
 
-    unique_img = [w for w,n in count_img.iteritems()]
+    unique_img = [w for w,n in count_img.items()]
     imgtoi = {w:i+1 for i,w in enumerate(unique_img)} # add one for torch, since torch start from 1.
 
     for i, img in enumerate(imgs):
@@ -171,7 +171,7 @@ def get_unqiue_img(imgs):
     ques_pos = np.zeros((img_N,3), dtype='uint32')
     ques_pos_len = np.zeros(img_N, dtype='uint32')
 
-    for idx, ques_list in ques_pos_tmp.iteritems():
+    for idx, ques_list in ques_pos_tmp.items():
         ques_pos_len[idx] = len(ques_list)
         for j in range(len(ques_list)):
             ques_pos[idx][j] = ques_list[j]
