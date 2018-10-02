@@ -91,8 +91,8 @@ def get_top_answers(imgs, params):
         counts[ans] = counts.get(ans, 0) + 1
 
     cw = sorted([(count,w) for w,count in counts.iteritems()], reverse=True)
-    print 'top answer and their counts:'    
-    print '\n'.join(map(str,cw[:20]))
+    print('top answer and their counts:')    
+    print('\n'.join(map(str,cw[:20])))
     
     vocab = []
     for i in range(params['num_ans']):
