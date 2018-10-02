@@ -32,7 +32,7 @@ def prepro_question(imgs, params):
             txt = tokenize(s)
 
         img['processed_tokens'] = txt
-        if i < 10: print txt
+        if i < 10: print(txt)
         if i % 1000 == 0:
             sys.stdout.write("processing %d/%d (%.2f%% done)   \r" %  (i, len(imgs), i*100.0/len(imgs)) )
             sys.stdout.flush()   
