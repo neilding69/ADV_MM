@@ -48,15 +48,15 @@ def build_vocab_question(imgs, params):
     for img in imgs:
         for w in img['processed_tokens']:
             counts[w] = counts.get(w, 0) + 1
-    cw = sorted([(count,w) for w,count in counts.iteritems()], reverse=True)
+    cw = sorted([(count,w) for w,count in counts.items()], reverse=True)
     print('top words and their counts:')
     print('\n'.join(map(str,cw[:20])))
 
     # print some stats
     total_words = sum(counts.itervalues())
     print('total words:', total_words)
-    bad_words = [w for w,n in counts.iteritems() if n <= count_thr]
-    vocab = [w for w,n in counts.iteritems() if n > count_thr]
+    bad_words = [w for w,n in counts.items() if n <= count_thr]
+    vocab = [w for w,n in counts.items() if n > count_thr]
     bad_count = sum(counts[w] for w in bad_words)
     print('number of bad words: %d/%d = %.2f%%' % (len(bad_words), len(counts), len(bad_words)*100.0/len(counts)))
     print('number of words in vocab would be %d' % (len(vocab), ))
@@ -90,7 +90,7 @@ def get_top_answers(imgs, params):
         ans = img['ans'] 
         counts[ans] = counts.get(ans, 0) + 1
 
-    cw = sorted([(count,w) for w,count in counts.iteritems()], reverse=True)
+    cw = sorted([(count,w) for w,count in counts.items()], reverse=True)
     print('top answer and their counts:')    
     print('\n'.join(map(str,cw[:20])))
     
