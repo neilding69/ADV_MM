@@ -23,7 +23,7 @@ def tokenize(sentence):
 def prepro_question(imgs, params):
   
     # preprocess all the question
-    print 'example processed tokens:'
+    print('example processed tokens:')
     for i,img in enumerate(imgs):
         s = img['question']
         if params['token_method'] == 'nltk':
@@ -49,23 +49,23 @@ def build_vocab_question(imgs, params):
         for w in img['processed_tokens']:
             counts[w] = counts.get(w, 0) + 1
     cw = sorted([(count,w) for w,count in counts.iteritems()], reverse=True)
-    print 'top words and their counts:'
-    print '\n'.join(map(str,cw[:20]))
+    print('top words and their counts:')
+    print('\n'.join(map(str,cw[:20])))
 
     # print some stats
     total_words = sum(counts.itervalues())
-    print 'total words:', total_words
+    print('total words:', total_words)
     bad_words = [w for w,n in counts.iteritems() if n <= count_thr]
     vocab = [w for w,n in counts.iteritems() if n > count_thr]
     bad_count = sum(counts[w] for w in bad_words)
-    print 'number of bad words: %d/%d = %.2f%%' % (len(bad_words), len(counts), len(bad_words)*100.0/len(counts))
-    print 'number of words in vocab would be %d' % (len(vocab), )
-    print 'number of UNKs: %d/%d = %.2f%%' % (bad_count, total_words, bad_count*100.0/total_words)
+    print('number of bad words: %d/%d = %.2f%%' % (len(bad_words), len(counts), len(bad_words)*100.0/len(counts)))
+    print('number of words in vocab would be %d' % (len(vocab), ))
+    print('number of UNKs: %d/%d = %.2f%%' % (bad_count, total_words, bad_count*100.0/total_words))
 
 
     # lets now produce the final annotation
     # additional special UNK token we will use below to map infrequent words to
-    print 'inserting the special UNK token'
+    print('inserting the special UNK token')
     vocab.append('UNK')
   
     for img in imgs:
@@ -144,7 +144,7 @@ def filter_question(imgs, atoi):
         if img['ans'] in atoi:
             new_imgs.append(img)
 
-    print 'question number reduce from %d to %d '%(len(imgs), len(new_imgs))
+    print('question number reduce from %d to %d '%(len(imgs), len(new_imgs)))
     return new_imgs
 
 def get_unqiue_img(imgs):
@@ -257,7 +257,7 @@ def main(params):
     f.create_dataset("MC_ans_test", dtype='uint32', data=MC_ans_test)
 
     f.close()
-    print 'wrote ', params['output_h5']
+    print('wrote ', params['output_h5'])
 
     # create output json file
     out = {}
@@ -266,7 +266,7 @@ def main(params):
     out['unique_img_train'] = unique_img_train
     out['uniuqe_img_test'] = unique_img_test
     json.dump(out, open(params['output_json'], 'w'))
-    print 'wrote ', params['output_json']
+    print('wrote ', params['output_json'])
 
 if __name__ == "__main__":
 
@@ -287,6 +287,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     params = vars(args) # convert to ordinary dict
-    print 'parsed input parameters:'
-    print json.dumps(params, indent = 2)
+    print('parsed input parameters:')
+    print(json.dumps(params, indent = 2))
     main(params)
