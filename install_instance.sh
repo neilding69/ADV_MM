@@ -20,18 +20,18 @@
 # Install CUDA 9.0
 ##################
 
-echo "Checking for CUDA 9.0 and installing."
-if ! dpkg-query -W cuda-9-0; then
-  sudo curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-  sudo dpkg -i ./cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-  sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
-  sudo apt-get update
-  sudo apt-get install cuda-9-0 -y
-fi
-# Enable persistence mode
-sudo nvidia-smi -pm 1
-
-
+cd
+wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
+chmod +x cuda_9.0.176_384.81_linux-run
+./cuda_9.0.176_384.81_linux-run --extract=$HOME
+sudo ./cuda-linux.9.0.176-22781540.run
+sudo ./cuda-samples.9.0.176-22781540-linux.run
+export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+sudo bash -c "echo /usr/local/cuda/lib64/ > /etc/ld.so.conf.d/cuda.conf"
+sudo ldconfig
+# sudo vim /etc/environment
+# add :/usr/local/cuda/bin (including the ":") at the end of the PATH="/blah:/blah/blah" string (inside the quotes).
 
 ##################
 # Install CUDNN 9.0 Download cudnn runtime, deb, doc
@@ -105,6 +105,7 @@ echo "c.NotebookApp.ip = '*'" >> .jupyter/jupyter_notebook_config.py
 echo "c.NotebookApp.open_browser = False" >> .jupyter/jupyter_notebook_config.py
 echo "c.NotebookApp.port = 8888" >> .jupyter/jupyter_notebook_config.py
 echo "c.NotebookApp.token='deeplearning'" >> .jupyter/jupyter_notebook_config.py
+
 
 
 
