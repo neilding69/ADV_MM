@@ -17,7 +17,7 @@
 
 
 ##################
-# Install CUDA 9.0
+# Install CUDA 9.0 https://medium.com/@zhanwenchen/install-cuda-and-cudnn-for-tensorflow-gpu-on-ubuntu-79306e4ac04e
 ##################
 
 cd
@@ -32,6 +32,9 @@ sudo bash -c "echo /usr/local/cuda/lib64/ > /etc/ld.so.conf.d/cuda.conf"
 sudo ldconfig
 # sudo vim /etc/environment
 # add :/usr/local/cuda/bin (including the ":") at the end of the PATH="/blah:/blah/blah" string (inside the quotes).
+cd /usr/local/cuda-9.0/samples
+sudo make
+cd /usr/local/cuda/samples/bin/x86_64/linux/release
 
 ##################
 # Install CUDNN 9.0 Download cudnn runtime, deb, doc
@@ -39,7 +42,7 @@ sudo ldconfig
 sudo dpkg -i libcudnn7_7.3.1.20-1+cuda9.0_amd64.deb
 sudo dpkg -i libcudnn7-dev_7.3.1.20-1+cuda9.0_amd64.deb
 sudo dpkg -i libcudnn7-doc_7.3.1.20-1+cuda9.0_amd64.deb
-
+echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64' >> ~/.bashrc
 ########################
 # Install miniconda
 ########################
